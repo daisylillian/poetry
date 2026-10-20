@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8e4da">
+  <meta name="description" content="A little studio for found poems. Black out words, uncover a poem, and take your page home. All in your browser.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>The Improbable Press — Blackout Poetry</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to the page</a>
+  <header class="masthead">
+    <a class="wordmark" href="./" aria-label="The Improbable Press, home"><span class="wordmark-small">THE</span><span>Improbable<span class="wordmark-last">Press<span class="wordmark-dot">.</span></span></span></a>
+    <div class="masthead-caption"><span>WORDS, RECONSIDERED.</span><span>A little blackout poetry studio</span></div>
+    <div class="press-stamp" aria-hidden="true"><span>MAKE</span><em>less.</em><span>MEAN MORE.</span></div>
+  </header>
+
+  <main id="workspace" class="studio">
+    <aside class="tools" aria-label="Poetry tools">
+      <div class="tools-intro"><span class="eyebrow">THE ART OF LEAVING OUT</span><h1>A poem is hiding <br>in this page.</h1><p>Remove words. Change the meaning. <br>Click any block to bring a word back.</p></div>
+
+      <div class="edit-controls" aria-label="Edit your poem">
+        <div class="history-controls"><button id="undo" class="small-button" type="button" disabled><span aria-hidden="true">↶</span> Undo</button><button id="redo" class="small-button" type="button" disabled><span aria-hidden="true">↷</span> Redo</button></div>
+        <button id="restore" class="text-button" type="button">Restore all words <span aria-hidden="true">↗</span></button>
+      </div>
+
+      <details id="source-details" class="tool-section">
+        <summary><span><span class="section-number">01</span> Source text</span><span class="summary-symbol" aria-hidden="true">+</span></summary>
+        <div class="section-content"><label for="source-input">Bring your own words</label><textarea id="source-input" rows="7" maxlength="12001" spellcheck="false" aria-describedby="source-limit source-error"></textarea><p id="source-limit" class="fine-print">Paste up to 12,000 characters. Original line breaks and punctuation stay put.</p><label class="file-label" for="source-file"><span aria-hidden="true">↑</span> Open a .txt file</label><input id="source-file" type="file" accept=".txt,text/plain" aria-describedby="source-limit source-error"><p id="file-name" class="fine-print"></p><p id="source-error" class="error" role="alert"></p><button id="use-source" class="secondary-button" type="button">Use this text <span aria-hidden="true">→</span></button><p class="fine-print">Replacing a page can be undone.</p></div>
+      </details>
+
+      <details class="tool-section" id="appearance-details">
+        <summary><span><span class="section-number">02</span> Paper &amp; ink</span><span class="summary-symbol" aria-hidden="true">+</span></summary>
+        <div class="section-content">
+          <fieldset><legend>Paper</legend><div class="swatch-options"><label class="swatch-option"><input type="radio" name="paper" value="cream" checked><span class="swatch cream" aria-hidden="true"></span><span>Ivory</span></label><label class="swatch-option"><input type="radio" name="paper" value="white"><span class="swatch white" aria-hidden="true"></span><span>Chalk</span></label><label class="swatch-option"><input type="radio" name="paper" value="rose"><span class="swatch rose" aria-hidden="true"></span><span>Blush</span></label></div></fieldset>
+          <fieldset><legend>Blackout ink</legend><div class="swatch-options"><label class="swatch-option"><input type="radio" name="ink" value="black" checked><span class="swatch black" aria-hidden="true"></span><span>Carbon</span></label><label class="swatch-option"><input type="radio" name="ink" value="blue"><span class="swatch blue" aria-hidden="true"></span><span>Midnight</span></label><label class="swatch-option"><input type="radio" name="ink" value="red"><span class="swatch red" aria-hidden="true"></span><span>Oxide</span></label></div></fieldset>
+          <label for="type-select">Type appearance</label><select id="type-select" name="type"><option value="book">Bookish — a literary serif</option><option value="typewriter">Typescript — a typewriter face</option><option value="sans">Plainspoken — a clean sans</option></select>
+          <label for="treatment-select">Blackout treatment</label><select id="treatment-select" name="treatment"><option value="brush">Dry brush</option><option value="solid">Clean cut</option><option value="rounded">Soft edge</option></select>
+        </div>
+      </details>
+
+      <button id="export" class="export-button" type="button">Export PNG <span aria-hidden="true">↓</span></button>
+      <p class="privacy-note"><span aria-hidden="true">✳</span> Your words stay in this browser. <br>Refreshing clears your work. Export to keep it.</p>
+      <p class="keyboard-note" id="keyboard-help">Keyboard: Tab to the page. Use ← → to move, Space to black out or restore. Home / End jump to either end.</p>
+    </aside>
+
+    <section class="composition" aria-label="Your blackout poem">
+      <div class="page-caption"><p><span class="live-dot" aria-hidden="true"></span> WORKING PROOF</p><p id="word-count"></p></div>
+      <div class="sheet-wrap"><article id="sheet" class="sheet" aria-label="Poem sheet">
+        <header class="sheet-heading"><p data-print class="sheet-label">A FOUND POEM</p><p data-print class="sheet-edition">№ 001</p></header>
+        <div class="page-rule" data-print-rule></div>
+        <div id="poem" class="poem" aria-label="Poem words" aria-describedby="page-help keyboard-help"></div>
+        <footer class="sheet-footer"><div class="page-rule" data-print-rule></div><div class="source-credit"><p id="credit" data-print></p><span class="printer-flower" data-print aria-hidden="true">✳</span></div></footer>
+      </article><span class="margin-note" aria-hidden="true">a small act of discovery</span></div>
+      <p id="page-help" class="page-help"><span aria-hidden="true">↖</span> Click a word to black it out. Click a block to bring it back.</p>
+    </section>
+  </main>
+  <footer class="studio-footer"><p>THE IMPROBABLE PRESS <span aria-hidden="true">/</span> MAKE SOMETHING OUT OF SOMETHING.</p><p>One page. A different possibility.</p></footer>
+  <div id="status" class="sr-only" role="status" aria-live="polite"></div>
+  <dialog id="export-dialog" aria-labelledby="export-title"><div class="dialog-heading"><div><span class="eyebrow">FRESH FROM THE PRESS</span><h2 id="export-title">Your page, to keep.</h2></div><button id="close-export" type="button" class="close-button" aria-label="Close export preview">×</button></div><p class="dialog-copy">Your PNG includes the paper, ink and original line breaks.</p><div class="export-preview-wrap"><img id="export-preview" alt="Preview of your exported blackout poem"></div><a id="download" class="export-button" download="improbable-poem.png">Download PNG <span aria-hidden="true">↓</span></a><p class="fine-print">On a phone, you can also press and hold the image to save it.</p></dialog>
+  <noscript><p class="noscript">This studio needs JavaScript to work. Enable it to black out words and export your poem.</p></noscript>
+</body>
+</html>
