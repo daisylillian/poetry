@@ -1,0 +1,9 @@
+# Independent review — 20 October 2026
+
+Reviewed the actual new `dist/` implementation against the requested local source → independent word editing → undo/redo/reset/source replacement → bounded appearance → faithful PNG journey. Reused the completed browser evidence in `browser-checks.md`; no second browser sweep.
+
+- **Medium, fixed:** PNG preparation captured history before waiting for fonts and animation frames, then read the live DOM. An edit during that wait could combine old masks/paper with new words/layout. `renderPNG` now obtains a fresh history snapshot after the waits and immediately measures/paints the matching DOM synchronously. Later edits during PNG encoding cannot change the painted canvas.
+- Added a focused regression that changes the source word identity, mask, paper and ink between readiness frames, and checks that the PNG uses the coherent new page. It also checks that later edits do not recapture the pending image.
+- Source rendering uses text nodes/textContent, file reads stay local and staged, and stale asynchronous file results are discarded by the draft version. History snapshots copy selections/styles, source records are immutable, source replacement restores word focus when necessary, and export allocation rejects impossible dimensions before canvas allocation. No additional concrete failure was identified in these reviewed paths.
+
+Actual checks after the fix: `npm test` **8/8 passed**, `npm run check` passed, `git diff --check` passed. The regression uses a minimal DOM/canvas test double to control the preparation timing; it does not replace the existing real-browser PNG evidence. The normal browser file chooser flow also succeeded in the top-level page, including draft staging, exact text and blank-line preservation, and undo back to the sample. Real hardware touch, Safari/Firefox and representative-user testing remain unverified, as recorded in `browser-checks.md`. No publication or GitHub writes.

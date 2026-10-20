@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Poetry viewport checks</title>
+<style>body{margin:0;background:#ddd;font:16px system-ui}nav{padding:12px;display:flex;gap:12px;position:sticky;top:0;background:white;z-index:2}button{padding:10px}iframe{display:block;border:0;background:white;height:1000px;width:1280px}</style>
+<nav aria-label="Test viewport"><button data-width="1280">1280 px desktop</button><button data-width="390">390 px phone</button><output>1280 px</output></nav><iframe title="Poetry app test viewport" src="/index.html"></iframe>
+<script>for(const button of document.querySelectorAll('button'))button.addEventListener('click',()=>{document.querySelector('iframe').style.width=button.dataset.width+'px';document.querySelector('output').value=button.dataset.width+' px';});</script>
+</html>
